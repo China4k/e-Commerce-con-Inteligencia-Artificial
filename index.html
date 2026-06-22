@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Pole Arts</title>
+    <style>
+        :root {
+            --ravenclaw-blue: #0e1d3a;
+            --ravenclaw-blue-light: #1a3363;
+            --ravenclaw-bronze: #9c7c38;
+            --ravenclaw-silver: #e2e8f0;
+            --bg-dark: #0a0f1d;
+            --card-bg: #131b2e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--ravenclaw-silver);
+            padding: 20px;
+        }
+
+        /* --- HEADER --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--ravenclaw-bronze);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            width: 80px;
+            height: 80px;
+        }
+
+        /* Silueta estilizada basada en tu foto de duplas */
+        .logo-svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--ravenclaw-bronze);
+        }
+
+        .title-container {
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        h1 {
+            font-family: 'Georgia', serif;
+            color: var(--ravenclaw-bronze);
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            text-shadow: 0px 0px 10px rgba(156, 124, 56, 0.3);
+        }
+
+        .cart-trigger-btn {
+            background: var(--ravenclaw-blue-light);
+            color: var(--ravenclaw-silver);
+            border: 1px solid var(--ravenclaw-bronze);
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .cart-trigger-btn:hover {
+            background: var(--ravenclaw-bronze);
+            color: var(--ravenclaw-blue);
+        }
+
+        /* --- CONTROLES (Buscador y Filtro) --- */
+        .controls-section {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .search-bar {
+            width: 50%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid var(--ravenclaw-blue-light);
+            background-color: var(--card-bg);
+            color: var(--ravenclaw-silver);
+        }
+
+        .filter-select {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid var(--ravenclaw-bronze);
+            background-color: var(--card-bg);
+            color: var(--ravenclaw-silver);
+            cursor: pointer;
+        }
+
+        /* --- GRILLA DE PRODUCTOS --- */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--ravenclaw-blue-light);
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--ravenclaw-bronze);
+        }
+
+        .product-type {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--ravenclaw-bronze);
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .product-desc {
+            font-size: 0.9rem;
+            color: #a0aec0;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .product-meta {
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            color: var(--ravenclaw-silver);
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            color: var(--ravenclaw-bronze);
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .action-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .qty-input {
+            width: 60px;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid var(--ravenclaw-blue-light);
+            background: var(--bg-dark);
+            color: white;
+            text-align: center;
+        }
+
+        .add-btn {
+            flex-grow: 1;
+            background-color: var(--ravenclaw-blue);
+            color: white;
+            border: 1px solid var(--ravenclaw-bronze);
+            padding: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .add-btn:hover {
+            background-color: var(--ravenclaw-bronze);
+            color: var(--ravenclaw-blue);
+        }
+
+        /* --- MODAL DEL CARRITO --- */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            border: 2px solid var(--ravenclaw-bronze);
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--ravenclaw-blue-light);
+            padding-bottom: 10px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--ravenclaw-silver);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #1f2d4a;
+        }
+
+        .cart-total {
+            font-size: 1.4rem;
+            text-align: right;
+            margin-top: 20px;
+            color: var(--ravenclaw-bronze);
+            font-weight: bold;
+        }
+
+        .pay-btn {
+            width: 100%;
+            background-color: var(--ravenclaw-bronze);
+            color: var(--ravenclaw-blue);
+            border: none;
+            padding: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .pay-btn:hover {
+            background-color: #bfa15c;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <svg class="logo-svg" viewBox="0 0 100 100">
+                <line x1="50" y1="5" x2="50" y2="95" stroke="#9c7c38" stroke-width="3" />
+                <path d="M 50,25 C 65,20 75,35 85,30 C 70,38 60,40 50,45 C 55,38 52,30 50,25 Z" />
+                <path d="M 50,45 C 35,55 30,70 25,80 C 40,70 48,60 50,52 C 45,62 48,72 50,85 Z" stroke-width="2"/>
+                <circle cx="34" cy="38" r="3" />
+                <circle cx="31" cy="46" r="3" />
+            </svg>
+        </div>
+        
+        <div class="title-container">
+            <h1>The Pole Arts</h1>
+        </div>
+
+        <div>
+            <button class="cart-trigger-btn" id="openCartBtn">Ver Carrito (<span id="cartCount">0</span>)</button>
+        </div>
+    </header>
+
+    <section class="controls-section">
+        <input type="text" id="searchBar" class="search-bar" placeholder="Buscar hechizo, barra, poción...">
+        <select id="filterSelect" class="filter-select">
+            <option value="Todos">Todos los artículos</option>
+            <option value="Venta">Venta de Equipamiento</option>
+            <option value="Alquiler">Alquiler de Salones</option>
+        </select>
+    </section>
+
+    <main class="products-grid" id="productsContainer"></main>
+
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Tu Carrito Mágico</h2>
+                <button class="close-btn" id="closeCartBtn">&times;</button>
+            </div>
+            <div id="cartItemsContainer">
+                </div>
+            <div class="cart-total">Total: $<span id="cartTotalAmount">0.00</span></div>
+            <button class="pay-btn" id="payBtn">Finalizar Compra con Hechizo de Pago</button>
+        </div>
+    </div>
+
+    <script>
+        // Estructura de Datos de los Productos (con los tuyos + los nuevos mágicos)
+        const inventario = [
+            { id: 1, Producto: "Barra Nimbus 2000", Tipo: "Venta", Descripcion: "Pole desmontable de acero inoxidable. Ideal para practicar inversiones rápidas en casa.", Precio: 150000.00, Stock: 15, Disponible: true },
+            { id: 2, Producto: "Pole Fijo Saeta de Fuego", Tipo: "Venta", Descripcion: "Pole fijo profesional de alta gama con agarre ultra pulido para trucos de fuerza.", Precio: 185000.00, Stock: 8, Disponible: true },
+            { id: 3, Producto: "Pole Volador Gryffindor", Tipo: "Venta", Descripcion: "Pole colgante de silicona roja. Perfecto para experimentar la sensación de volar.", Precio: 210000.00, Stock: 5, Disponible: true },
+            { id: 4, Producto: "Tarima de Pociones Snape", Tipo: "Venta", Descripcion: "Tarima portátil con base de madera oscura texturizada. Excelente estabilidad.", Precio: 320000.00, Stock: 3, Disponible: true },
+            { id: 5, Producto: "Grip Felix Felicis", Tipo: "Venta", Descripcion: "Magnesia líquida de alta duración. Te da el agarre mágico para que no te resbales.", Precio: 4500.50, Stock: 120, Disponible: true },
+            { id: 6, Producto: "Toalla Hechizo de Secado", Tipo: "Venta", Descripcion: "Toalla de microfibra personalizada con el escudo de tu casa. Absorción instantánea.", Precio: 3200.00, Stock: 50, Disponible: true },
+            { id: 7, Producto: "Sala de Menesteres", Tipo: "Alquiler", Descripcion: "Alquiler por hora de estudio de danza equipado. Aparece justo cuando lo necesitás.", Precio: 2500.00, Stock: 1, Disponible: true },
+            // Nuevos agregados interactivos y mágicos
+            { id: 8, Producto: "Poción Multijugos Grip", Tipo: "Venta", Descripcion: "Poción especial que adapta la textura de tus manos a cualquier clima de barra.", Precio: 6200.00, Stock: 25, Disponible: true },
+            { id: 9, Producto: "Vaso Retrato Viviente", Tipo: "Venta", Descripcion: "Vaso térmico con pantalla mágica integrada para reproducir tus videos de pole en movimiento.", Precio: 18000.00, Stock: 12, Disponible: true }
+        ];
+
+        let carrito = [];
+
+        const productsContainer = document.getElementById('productsContainer');
+        const searchBar = document.getElementById('searchBar');
+        const filterSelect = document.getElementById('filterSelect');
+        const cartModal = document.getElementById('cartModal');
+        const openCartBtn = document.getElementById('openCartBtn');
+        const closeCartBtn = document.getElementById('closeCartBtn');
+        const cartItemsContainer = document.getElementById('cartItemsContainer');
+        const cartTotalAmount = document.getElementById('cartTotalAmount');
+        const cartCount = document.getElementById('cartCount');
+        const payBtn = document.getElementById('payBtn');
+
+        // Función para renderizar tarjetas de productos
+        function renderProducts(lista) {
+            productsContainer.innerHTML = '';
+            if(lista.length === 0) {
+                productsContainer.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color: var(--ravenclaw-bronze)">No se encontraron artículos con ese encantamiento.</p>';
+                return;
+            }
+
+            lista.forEach(prod => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div>
+                        <div class="product-type">${prod.Tipo}</div>
+                        <div class="product-name">${prod.Producto}</div>
+                        <div class="product-desc">${prod.Descripcion}</div>
+                        <div class="product-meta">Stock disponible: ${prod.Stock} u.</div>
+                    </div>
+                    <div>
+                        <div class="product-price">$${prod.Precio.toLocaleString('es-AR', {minimumFractionDigits: 2})}</div>
+                        <div class="action-row">
+                            <input type="number" class="qty-input" id="qty-${prod.id}" value="1" min="1" max="${prod.Stock}">
+                            <button class="add-btn" onclick="agregarAlCarrito(${prod.id})">Añadir</button>
+                        </div>
+                    </div>
+                `;
+                productsContainer.appendChild(card);
+            });
+        }
+
+        // Lógica de filtrado y búsqueda combinada
+        function filtrarProductos() {
+            const query = searchBar.value.toLowerCase();
+            const tipoSeleccionado = filterSelect.value;
+
+            const filtrados = inventario.filter(prod => {
+                const coincideBusqueda = prod.Producto.toLowerCase().includes(query) || prod.Descripcion.toLowerCase().includes(query);
+                const coincideTipo = (tipoSeleccionado === 'Todos') || (prod.Tipo === tipoSeleccionado);
+                return coincideBusqueda && coincideTipo;
+            });
+
+            renderProducts(filtrados);
+        }
+
+        // Agregar elementos al carrito
+        window.agregarAlCarrito = function(id) {
+            const producto = inventario.find(p => p.id === id);
+            const qtyInput = document.getElementById(`qty-${id}`);
+            const cantidad = parseInt(qtyInput.value);
+
+            if (cantidad > producto.Stock) {
+                alert(`¡Por las barbas de Merlín! No hay suficiente stock disponible.`);
+                return;
+            }
+
+            const itemEnCarrito = carrito.find(item => item.id === id);
+
+            if (itemEnCarrito) {
+                if (itemEnCarrito.cantidad + cantidad > producto.Stock) {
+                    alert("Estás superando el stock disponible en tu carrito.");
+                    return;
+                }
+                itemEnCarrito.cantidad += cantidad;
+            } else {
+                carrito.push({ ...producto, cantidad: cantidad });
+            }
+
+            actualizarInterfazCarrito();
+            qtyInput.value = 1; // Resetea el input de cantidad
+        }
+
+        // Actualizar datos y contador del carrito
+        function actualizarInterfazCarrito() {
+            // Actualizar número del botón del header
+            const totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+            cartCount.textContent = totalItems;
+
+            // Renderizar items dentro de la modal
+            cartItemsContainer.innerHTML = '';
+            let totalDinero = 0;
+
+            if (carrito.length === 0) {
+                cartItemsContainer.innerHTML = '<p style="text-align:center; padding: 20px;">El carrito está vacío.</p>';
+            } else {
+                carrito.forEach(item => {
+                    const subtotal = item.Precio * item.cantidad;
+                    totalDinero += subtotal;
+
+                    const row = document.createElement('div');
+                    row.className = 'cart-item';
+                    row.innerHTML = `
+                        <div>
+                            <strong>${item.Producto}</strong> <br>
+                            <small>${item.cantidad} x $${item.Precio.toLocaleString('es-AR')}</small>
+                        </div>
+                        <div>
+                            $${subtotal.toLocaleString('es-AR', {minimumFractionDigits: 2})}
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(row);
+                });
+            }
+
+            cartTotalAmount.textContent = totalDinero.toLocaleString('es-AR', {minimumFractionDigits: 2});
+        }
+
+        // Eventos de la Modal
+        openCartBtn.addEventListener('click', () => cartModal.style.display = 'flex');
+        closeCartBtn.addEventListener('click', () => cartModal.style.display = 'none');
+        window.addEventListener('click', (e) => { if(e.target === cartModal) cartModal.style.display = 'none'; });
+
+        // Botón de pago con alerta limpia
+        payBtn.addEventListener('click', () => {
+            if(carrito.length === 0) {
+                alert("Tu carrito está vacío. ¡Añadí algo de magia antes de pagar!");
+                return;
+            }
+            alert("✨ ¡Compra realizada con éxito! Tus productos están siendo enviados vía lechuza. ✨");
+            carrito = [];
+            actualizarInterfazCarrito();
+            cartModal.style.display = 'none';
+        });
+
+        // Eventos de búsqueda y filtro
+        searchBar.addEventListener('input', filtrarProductos);
+        filterSelect.addEventListener('change', filtrarProductos);
+
+        // Renderizado Inicial
+        renderProducts(inventario);
+    </script>
+</body>
+</html>
