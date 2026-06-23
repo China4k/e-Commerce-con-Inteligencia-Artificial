@@ -7,16 +7,17 @@
 ## Diseño del registro principal
 Para la gestión de inventario y servicios, se definió la siguiente estructura de datos:
 
+```pascal
 Pole_Art = Registro
-  id_producto: N(2)    #clave primaria
-  Producto: AN(30)
-  Tipo: ("Alquiler", "Venta")
-  Descripcion: AN(150)
-  Precio: Real
-  Stock: N(3)
-  Disponible: Booleano
+  id_producto: N(2)          { Clave Primaria Simple }
+  Producto: AN(30)           { Nombre del artículo místico }
+  Tipo: ("Alquiler", "Venta") { Categoría de transacción }
+  Descripcion: AN(150)       { Propiedades mágicas del ítem }
+  Precio: Real               { Costo expresado en Galeones }
+  Stock: N(3)                { Unidades en el Callejón Diagon }
+  Disponible: Booleano       { Estado actual de disponibilidad }
 Fin_Registro
-
+```
 ## Identificación y explicación de la clave
 Campo clave: id_producto
   Se seleccionó este campo como clave primaria simple debido a la propiedad de unicidad. Es fundamental contar con un selector de campo que sea único e irrepetible. Dos productos pueden tener el mismo precio o nombre, pero el ID garantiza que la base de datos identifique cada ítem, evitando errores.
