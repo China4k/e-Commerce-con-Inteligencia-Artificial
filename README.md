@@ -22,13 +22,13 @@ Campo clave: id_producto
   Se seleccionó este campo como clave primaria simple debido a la propiedad de unicidad. Es fundamental contar con un selector de campo que sea único e irrepetible. Dos productos pueden tener el mismo precio o nombre, pero el ID garantiza que la base de datos identifique cada ítem, evitando errores.
 
 ## Proceso de Interacción con la IA
-Utilicé Google Gemini. [Link del chat completo](https://gemini.google.com/share/91db887f8ff9)
+Utilicé Google Gemini. [Link del chat completo](https://gemini.google.com/share/9594899ae1dc)
 
 ## Video Demo
-[Link](https://drive.google.com/file/d/1d1_nBfUOF8JAdtH9ww0NOBBt6wVoqciz/view?usp=sharing)
+[Link al drive](https://drive.google.com/file/d/1d1_nBfUOF8JAdtH9ww0NOBBt6wVoqciz/view?usp=sharing)
 
 ## App Publicada
-[Link](https://china4k.github.io/e-Commerce-con-Inteligencia-Artificial/)
+[Link de la página](https://china4k.github.io/e-Commerce-con-Inteligencia-Artificial/)
 
 ## Reflexión sobre el uso de IA en el diseño
 
