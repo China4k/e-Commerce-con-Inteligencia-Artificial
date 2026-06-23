@@ -322,15 +322,15 @@
     <script>
         // Estructura de Datos de los Productos (con los tuyos + los nuevos mágicos)
         const inventario = [
-            { id: 1, Producto: "Barra Nimbus 2000", Tipo: "Venta", Descripcion: "Pole desmontable de acero inoxidable. Ideal para practicar inversiones rápidas en casa.", Precio: 150000.00, Stock: 15, Disponible: true },
-            { id: 2, Producto: "Pole Fijo Saeta de Fuego", Tipo: "Venta", Descripcion: "Pole fijo profesional de alta gama con agarre ultra pulido para trucos de fuerza.", Precio: 185000.00, Stock: 8, Disponible: true },
+            { id: 1, Producto: "Pole Nimbus 2000", Tipo: "Venta", Descripcion: "Pole desmontable de acero inoxidable. Ideal para practicar inversiones rápidas en casa.", Precio: 150000.00, Stock: 15, Disponible: true },
+            { id: 2, Producto: "Pole Nimbus 3000", Tipo: "Venta", Descripcion: "Pole fijo profesional de alta gama con agarre ultra pulido para trucos de fuerza.", Precio: 185000.00, Stock: 8, Disponible: true },
             { id: 3, Producto: "Pole Volador Gryffindor", Tipo: "Venta", Descripcion: "Pole colgante de silicona roja. Perfecto para experimentar la sensación de volar.", Precio: 210000.00, Stock: 5, Disponible: true },
-            { id: 4, Producto: "Tarima de Pociones Snape", Tipo: "Venta", Descripcion: "Tarima portátil con base de madera oscura texturizada. Excelente estabilidad.", Precio: 320000.00, Stock: 3, Disponible: true },
-            { id: 5, Producto: "Grip Felix Felicis", Tipo: "Venta", Descripcion: "Magnesia líquida de alta duración. Te da el agarre mágico para que no te resbales.", Precio: 4500.50, Stock: 120, Disponible: true },
-            { id: 6, Producto: "Toalla Hechizo de Secado", Tipo: "Venta", Descripcion: "Toalla de microfibra personalizada con el escudo de tu casa. Absorción instantánea.", Precio: 3200.00, Stock: 50, Disponible: true },
-            { id: 7, Producto: "Sala de Menesteres", Tipo: "Alquiler", Descripcion: "Alquiler por hora de estudio de danza equipado. Aparece justo cuando lo necesitás.", Precio: 2500.00, Stock: 1, Disponible: true },
+            { id: 4, Producto: "Tarima de Cristal Snape", Tipo: "Venta", Descripcion: "Tarima portátil con base de madera oscura texturizada. Excelente estabilidad.", Precio: 320000.00, Stock: 3, Disponible: true },
+            { id: 5, Producto: "Grip Felix Felicis", Tipo: "Venta", Descripcion: "Magnesio líquido de alta duración. Te da el agarre mágico para que no te resbales.", Precio: 4500.50, Stock: 120, Disponible: true },
+            { id: 6, Producto: "Grip Poción Multijugos", Tipo: "Venta", Descripcion: "Poción especial que adapta la textura de tus manos a cualquier clima de barra.", Precio: 4500.50, Stock: 25, Disponible: true },
+            { id: 7, Producto: "Sala de Menesteres", Tipo: "Alquiler", Descripcion: "Alquiler por hora de estudio de danza equipado. Aparece justo cuando lo necesitás.", Precio: 25000.00, Stock: 1, Disponible: true },
             // Nuevos agregados interactivos y mágicos
-            { id: 8, Producto: "Poción Multijugos Grip", Tipo: "Venta", Descripcion: "Poción especial que adapta la textura de tus manos a cualquier clima de barra.", Precio: 6200.00, Stock: 25, Disponible: true },
+            { id: 8, Producto: "Toalla Hechizo de Secado", Tipo: "Venta", Descripcion: "Toalla de microfibra personalizada con el escudo de tu casa. Absorción instantánea.", Precio: 3200.00, Stock: 50, Disponible: true },
             { id: 9, Producto: "Vaso Retrato Viviente", Tipo: "Venta", Descripcion: "Vaso térmico con pantalla mágica integrada para reproducir tus videos de pole en movimiento.", Precio: 18000.00, Stock: 12, Disponible: true }
         ];
 
@@ -360,7 +360,10 @@
                 card.className = 'product-card';
                 card.innerHTML = `
                     <div>
-                        <div class="product-type">${prod.Tipo}</div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                            <div class="product-type">${prod.Tipo}</div>
+                            <div style="font-size: 0.75rem; color: rgba(156, 124, 56, 0.4); font-weight: bold; letter-spacing: 1px;">ID: ${prod.id}</div>
+                        </div>
                         <div class="product-name">${prod.Producto}</div>
                         <div class="product-desc">${prod.Descripcion}</div>
                         <div class="product-meta">Stock disponible: ${prod.Stock} u.</div>
